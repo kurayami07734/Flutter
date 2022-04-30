@@ -9,6 +9,7 @@ class MyCard extends StatelessWidget {
       home: Scaffold(
         body: SafeArea(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Center(
                 child: CircleAvatar(
@@ -22,49 +23,49 @@ class MyCard extends StatelessWidget {
                     fontSize: 50, color: Colors.white, fontFamily: 'Cookie'),
               ),
               const Text(
-                'EMGINEER',
-                style: TextStyle(fontSize: 25, color: Colors.white),
+                'Software Developer',
+                style: TextStyle(fontSize: 25, color: Colors.tealAccent),
               ),
-              Container(
-                color: Colors.white,
+              SizedBox(
+                height: 5,
+                width: 150,
+                child: Divider(color: Colors.teal[100]),
+              ),
+              Card(
                 margin: const EdgeInsets.symmetric(
                     vertical: 15.0, horizontal: 30.0),
-                padding: const EdgeInsets.all(15.0),
-                child: Row(
-                  children: [
-                    Icon(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ListTile(
+                    leading: Icon(
                       Icons.phone,
                       color: Colors.tealAccent[700],
                       size: 25.0,
                     ),
-                    const SizedBox(width: 40),
-                    Text(
+                    title: Text(
                       '+91 87796 60280',
                       style: TextStyle(
                           color: Colors.tealAccent[700], fontSize: 20),
-                    )
-                  ],
+                    ),
+                  ),
                 ),
               ),
-              Container(
-                color: Colors.white,
+              Card(
                 margin: const EdgeInsets.symmetric(
                     vertical: 15.0, horizontal: 30.0),
-                padding: const EdgeInsets.all(15.0),
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.mail,
-                      color: Colors.tealAccent[700],
-                      size: 25.0,
-                    ),
-                    const SizedBox(width: 40),
-                    Text(
-                      'ghidoraee@gmail.com',
-                      style: TextStyle(
-                          color: Colors.tealAccent[700], fontSize: 20),
-                    )
-                  ],
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ListTile(
+                      leading: Icon(
+                        Icons.mail,
+                        color: Colors.tealAccent[700],
+                        size: 25.0,
+                      ),
+                      title: Text(
+                        'ghidoraee@gmail.com',
+                        style: TextStyle(
+                            color: Colors.tealAccent[700], fontSize: 20),
+                      )),
                 ),
               )
             ],
