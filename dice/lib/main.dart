@@ -4,10 +4,10 @@ import './dice.dart';
 void main() {
   runApp(MaterialApp(
     home: Scaffold(
-      backgroundColor: Colors.red,
+      backgroundColor: Colors.indigo[200],
       appBar: AppBar(
         title: Text('Dice'),
-        backgroundColor: Colors.red,
+        backgroundColor: Colors.indigo,
       ),
       body: Dice(),
     ),

@@ -46,9 +46,8 @@ class _DiceState extends State<Dice> {
   int leftDiceNumber = 1;
   int rightDiceNumber = 1;
 
-  int changeDice() {
-    var r = Random();
-    return r.nextInt(6) + 1;
+  int _changeDice() {
+    return Random().nextInt(6) + 1;
   }
 
   @override
@@ -67,7 +66,7 @@ class _DiceState extends State<Dice> {
                       child: Image.asset('images/dice$leftDiceNumber.png'),
                       onPressed: () {
                         setState(() {
-                          leftDiceNumber = changeDice();
+                          leftDiceNumber = _changeDice();
                         });
                       }),
                 ),
@@ -79,7 +78,7 @@ class _DiceState extends State<Dice> {
                       child: Image.asset('images/dice$rightDiceNumber.png'),
                       onPressed: () {
                         setState(() {
-                          rightDiceNumber = changeDice();
+                          rightDiceNumber = _changeDice();
                         });
                       }),
                 ),
@@ -87,16 +86,16 @@ class _DiceState extends State<Dice> {
             ],
           ),
           ElevatedButton(
-              style: ElevatedButton.styleFrom(primary: Colors.white),
+              style: ElevatedButton.styleFrom(primary: Colors.indigo[500]),
               onPressed: () {
                 setState(() {
-                  leftDiceNumber = changeDice();
-                  rightDiceNumber = changeDice();
+                  leftDiceNumber = _changeDice();
+                  rightDiceNumber = _changeDice();
                 });
               },
-              child: Text(
+              child: const Text(
                 'Roll the dice',
-                style: TextStyle(color: Colors.red, fontSize: 20),
+                style: TextStyle(color: Colors.white, fontSize: 20),
               )),
         ],
       ),
