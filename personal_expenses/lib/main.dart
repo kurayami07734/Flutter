@@ -1,15 +1,45 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'transaction.dart';
+import 'package:personal_expenses/widgets/new_transaction.dart';
+import './models/transaction.dart';
+import './widgets/user_transactions.dart';
+import './widgets/list_item.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MaterialApp(
+    home: MyApp(),
+  ));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  final List<Transaction> _txns = [];
+  void _addNewTransaction(String title, double amount, String id) {
+    final newTx = Transaction(
+      id: id,
+      title: title,
+      amount: amount,
+      date: DateTime.now(),
+    );
+    setState(() {
+      _txns.add(newTx);
+    });
+  }
+
+  void _startAddNewTransaction(BuildContext ctx) {
+    showModalBottomSheet(
+        context: ctx,
+        builder: (_) {
+          return NewTransaction(addTx: _addNewTransaction);
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -18,87 +48,24 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.purple,
       ),
       home: Scaffold(
-        appBar: AppBar(title: Text('Expense tracker')),
-        body: MyHomePage(),
+        appBar: AppBar(
+          title: Text('Expense tracker'),
+          actions: [
+            IconButton(
+              onPressed: () {
+                _startAddNewTransaction(context);
+              },
+              icon: Icon(Icons.add),
+            ),
+          ],
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            _startAddNewTransaction(context);
+          },
+          child: Icon(Icons.add),
+        ),
       ),
-    );
-  }
-}
-
-class ListItem extends StatelessWidget {
-  final Transaction txn;
-  const ListItem({required this.txn});
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Text(
-            '\$${txn.amount}',
-            style: TextStyle(fontSize: 35, fontStyle: FontStyle.italic),
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                txn.title,
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Text(txn.id),
-              Text(DateFormat.yMMMd().format(txn.date)),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  List<Transaction> txns = [
-    Transaction(
-      id: 'food',
-      title: 'Sushi',
-      amount: 50,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: 'discretionary',
-      title: 'Pub',
-      amount: 400,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: 'essential',
-      title: 'Groceries',
-      amount: 35,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: 'discretionary',
-      title: 'Drinks',
-      amount: 65,
-      date: DateTime.now(),
-    )
-  ];
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: txns.map((tx) => ListItem(txn: tx)).toList()),
     );
   }
 }
