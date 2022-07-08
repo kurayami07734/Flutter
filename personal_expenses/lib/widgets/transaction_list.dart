@@ -11,12 +11,31 @@ class TransactionList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 400,
-      child: ListView.builder(
-        itemBuilder: (context, index) {
-          return ListItem(txn: txns[index]);
-        },
-        itemCount: txns.length,
-      ),
+      child: txns.isEmpty
+          ? Container(
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Text(
+                      'No Transactions added yet',
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
+                    Image(
+                      height: 200,
+                      image: AssetImage('img/waiting.png'),
+                      fit: BoxFit.cover,
+                    ),
+                  ],
+                ),
+              ),
+            )
+          : ListView.builder(
+              itemBuilder: (context, index) {
+                return ListItem(txn: txns[index]);
+              },
+              itemCount: txns.length,
+            ),
     );
   }
 }

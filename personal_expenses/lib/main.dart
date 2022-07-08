@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:personal_expenses/widgets/transaction_list.dart';
-import './widgets/new_transaction.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import './widgets/transaction_list.dart';
+import './widgets/new_transaction.dart';
+import './widgets/chart.dart';
+
 import './models/transaction.dart';
 
 void main() {
@@ -17,9 +20,12 @@ class MyApp extends StatelessWidget {
       home: const MyHomePage(),
       theme: ThemeData(
           primarySwatch: Colors.purple,
-          textTheme: TextTheme(
-            bodyText1: GoogleFonts.openSans(fontSize: 18),
-          ),
+          textTheme: ThemeData.light().textTheme.copyWith(
+                titleLarge: GoogleFonts.openSans(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
           appBarTheme: AppBarTheme(
             titleTextStyle: GoogleFonts.quicksand(
               fontSize: 20,
@@ -79,6 +85,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Column(
         children: [
+          Chart(txns: _txns),
           TransactionList(txns: _txns),
         ],
       ),
