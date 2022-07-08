@@ -1,24 +1,43 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:personal_expenses/widgets/new_transaction.dart';
+import 'package:personal_expenses/widgets/transaction_list.dart';
+import './widgets/new_transaction.dart';
+import 'package:google_fonts/google_fonts.dart';
 import './models/transaction.dart';
-import './widgets/user_transactions.dart';
-import './widgets/list_item.dart';
 
 void main() {
-  runApp(MaterialApp(
-    home: MyApp(),
-  ));
+  runApp(const MyApp());
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
-  State<MyApp> createState() => _MyAppState();
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: const MyHomePage(),
+      theme: ThemeData(
+          primarySwatch: Colors.purple,
+          textTheme: TextTheme(
+            bodyText1: GoogleFonts.openSans(fontSize: 18),
+          ),
+          appBarTheme: AppBarTheme(
+            titleTextStyle: GoogleFonts.quicksand(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          )),
+    );
+  }
 }
 
-class _MyAppState extends State<MyApp> {
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({Key? key}) : super(key: key);
+
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> _txns = [];
   void _addNewTransaction(String title, double amount, String id) {
     final newTx = Transaction(
@@ -36,35 +55,38 @@ class _MyAppState extends State<MyApp> {
     showModalBottomSheet(
         context: ctx,
         builder: (_) {
-          return NewTransaction(addTx: _addNewTransaction);
+          return GestureDetector(
+            onTap: () {},
+            behavior: HitTestBehavior.opaque,
+            child: NewTransaction(addTx: _addNewTransaction),
+          );
         });
   }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.purple,
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Expense tracker'),
+        actions: [
+          IconButton(
+            onPressed: () {
+              _startAddNewTransaction(context);
+            },
+            icon: Icon(Icons.add),
+          ),
+        ],
       ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Expense tracker'),
-          actions: [
-            IconButton(
-              onPressed: () {
-                _startAddNewTransaction(context);
-              },
-              icon: Icon(Icons.add),
-            ),
-          ],
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            _startAddNewTransaction(context);
-          },
-          child: Icon(Icons.add),
-        ),
+      body: Column(
+        children: [
+          TransactionList(txns: _txns),
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          _startAddNewTransaction(context);
+        },
+        child: const Icon(Icons.add),
       ),
     );
   }
