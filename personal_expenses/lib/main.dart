@@ -85,7 +85,11 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Column(
         children: [
-          Chart(txns: _txns),
+          Chart(
+              txns: _txns
+                  .where((tx) => tx.date
+                      .isAfter(DateTime.now().subtract(Duration(days: 7))))
+                  .toList()),
           TransactionList(txns: _txns),
         ],
       ),

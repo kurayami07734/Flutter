@@ -19,7 +19,7 @@ class Bar extends StatelessWidget {
           height: 5,
         ),
         Container(
-          height: amount * 100,
+          height: amount * 200,
           width: 30,
           color: Colors.amber,
         ),
@@ -50,7 +50,11 @@ class Chart extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: Container(
-        child: Row(children: groupTranactions()),
+        height: txns.isEmpty ? 0 : 200,
+        child: Row(
+          children: groupTranactions(),
+          crossAxisAlignment: CrossAxisAlignment.end,
+        ),
       ),
     );
   }
