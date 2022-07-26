@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "340498222213",
+    "project_id": "oregairu-eightman",
+    "storage_bucket": "oregairu-eightman.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:340498222213:android:19815e776ea970ce8aedec",
+        "android_client_info": {
+          "package_name": "com.example.firstfire"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "340498222213-jupv2gd8smu5mfeo09d7o54t7btilk46.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCHwS5nGDq6M3qiT-VTRVjLQdnH6cUE4bI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "340498222213-jupv2gd8smu5mfeo09d7o54t7btilk46.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

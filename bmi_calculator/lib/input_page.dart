@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+enum Gender {
+  male,
+  female,
+  none,
+}
+
 class InputPage extends StatefulWidget {
   const InputPage({Key? key}) : super(key: key);
 
@@ -9,8 +15,9 @@ class InputPage extends StatefulWidget {
 }
 
 class _InputPageState extends State<InputPage> {
-  static Color accentRed = Color(0xFFEA1556);
-  Color iconColor = Colors.white;
+  static Color accentRed = const Color(0xFFEA1556);
+  Gender selected = Gender.none;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,34 +32,43 @@ class _InputPageState extends State<InputPage> {
               Expanded(
                 child: GestureDetector(
                   onTap: () => setState(() {
-                    iconColor = accentRed;
-                  }),
-                  onDoubleTap: () => setState(() {
-                    iconColor = Colors.white;
+                    selected != Gender.male
+                        ? selected = Gender.male
+                        : selected = Gender.none;
                   }),
                   child: Card(
                     color: ThemeData.dark().cardColor,
                     child: MyIcon(
                       displayIcon: FontAwesomeIcons.mars,
                       label: 'MALE',
-                      iconColor: iconColor,
+                      iconColor:
+                          selected == Gender.male ? accentRed : Colors.white,
                     ),
                   ),
                 ),
               ),
               Expanded(
-                child: Card(
-                  color: ThemeData.dark().cardColor,
-                  child: MyIcon(
-                    displayIcon: FontAwesomeIcons.venus,
-                    label: 'FEMALE',
+                child: GestureDetector(
+                  onTap: () => setState(() {
+                    selected != Gender.female
+                        ? selected = Gender.female
+                        : selected = Gender.none;
+                  }),
+                  child: Card(
+                    color: ThemeData.dark().cardColor,
+                    child: MyIcon(
+                      displayIcon: FontAwesomeIcons.venus,
+                      label: 'FEMALE',
+                      iconColor:
+                          selected == Gender.female ? accentRed : Colors.white,
+                    ),
                   ),
                 ),
               ),
             ],
           ),
         ),
-        Expanded(child: Card(color: ThemeData.dark().cardColor)),
+        Expanded(child: Card(color: ThemeData.dark().cardColor, child: ,)),
         Expanded(
           child: Row(
             children: [
@@ -90,7 +106,7 @@ class MyIcon extends StatelessWidget {
         ),
         Text(
           label,
-          style: TextStyle(fontSize: 18),
+          style: TextStyle(fontSize: 18, color: iconColor),
         ),
       ],
     );

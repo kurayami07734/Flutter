@@ -18,7 +18,7 @@ class MyCard extends StatelessWidget {
                 ),
               ),
               const Text(
-                'Aditya Ghidora',
+                'Tanjiro',
                 style: TextStyle(
                     fontSize: 50, color: Colors.white, fontFamily: 'Cookie'),
               ),
